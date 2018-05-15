@@ -2,19 +2,19 @@ require(ggplot2)
 require(gridExtra)
 library(truncnorm)
 # open generated data
-fixed_theta_scenario1 = readRDS(file = "fixed_theta_scenario1.rds")
-fixed_theta_scenario2 = readRDS(file = "fixed_theta_scenario2.rds")
-varied_theta_scenario3 = readRDS(file = "varying_theta_scenario3.rds")
-varied_theta_scenario4 = readRDS(file = "varying_theta_scenario4.rds")
-varied_theta_scenario5 = readRDS(file = "varying_theta_scenario5.rds")
-varied_theta_scenario6 = readRDS(file = "varying_theta_scenario6.rds")
-varied_theta_scenario7 = readRDS(file = "varying_theta_scenario7.rds")
-varied_theta_scenario8 = readRDS(file = "varying_theta_scenario8.rds")
-varied_theta_scenario9 = readRDS(file = "varying_theta_scenario9.rds")
-varied_theta_scenario10 = readRDS(file = "varying_theta_scenario10.rds")
-varied_theta_scenario11 = readRDS(file = "varying_theta_scenario11.rds")
-varied_theta_scenario12 = readRDS(file = "varying_theta_scenario12.rds")
-varied_theta_scenario13 = readRDS(file = "varying_theta_scenario13.rds")
+fixed_theta_scenario1 = readRDS(file = "Data/fixed_theta_scenario1.rds")
+fixed_theta_scenario2 = readRDS(file = "Data/fixed_theta_scenario2.rds")
+varied_theta_scenario3 = readRDS(file = "Data/varying_theta_scenario3.rds")
+varied_theta_scenario4 = readRDS(file = "Data/varying_theta_scenario4.rds")
+varied_theta_scenario5 = readRDS(file = "Data/varying_theta_scenario5.rds")
+varied_theta_scenario6 = readRDS(file = "Data/varying_theta_scenario6.rds")
+varied_theta_scenario7 = readRDS(file = "Data/varying_theta_scenario7.rds")
+varied_theta_scenario8 = readRDS(file = "Data/varying_theta_scenario8.rds")
+varied_theta_scenario9 = readRDS(file = "Data/varying_theta_scenario9.rds")
+varied_theta_scenario10 = readRDS(file = "Data/varying_theta_scenario10.rds")
+varied_theta_scenario11 = readRDS(file = "Data/varying_theta_scenario11.rds")
+varied_theta_scenario12 = readRDS(file = "Data/varying_theta_scenario12.rds")
+varied_theta_scenario13 = readRDS(file = "Data/varying_theta_scenario13.rds")
 
 # true theta:
 theta_low = 0.001
@@ -331,7 +331,7 @@ coverage_plot <- ggplot(simulation_scenarios,aes(factor(scenario))) +
 
 
 simulation_plot_percent_bias <- grid.arrange(percent_bias_plot,mse_plot,coverage_plot,layout_matrix = rbind(c(1,2), c(3,3)))
-ggsave(simulation_plot_percent_bias,filename = "Bar_Chart_Scenarios1-13.pdf",width=11,height = 8,units = "in")
+ggsave(simulation_plot_percent_bias,filename = "Figures/Bar_Chart_Scenarios1-13.pdf",width=11,height = 8,units = "in")
 
 
 # Realistic Simulations:
@@ -467,7 +467,7 @@ coverage_plot_misspecification <- ggplot(simulation_scenarios_misspecification,a
   geom_hline(yintercept = 0,color="grey",alpha=0.5)
 
 misspecification_plot <- grid.arrange(relative_bias_plot_misspecification,mse_plot_misspecification,coverage_plot_misspecification,layout_matrix = rbind(c(1,2), c(3,3)))
-ggsave(misspecification_plot,filename = "Bars_Misspecification_Scenario_Graphics.pdf",width=11,height = 8,units = "in")
+ggsave(misspecification_plot,filename = "Figures/Bars_Misspecification_Scenario_Graphics.pdf",width=11,height = 8,units = "in")
 
 
 ##### ----------------- Appendix Plots ------------------ ####
@@ -551,7 +551,7 @@ coverage_plot_beta_uni <- ggplot(simulation_scenarios_beta_uni,aes(factor(scenar
 
 simulation_plot_percent_bias_beta_uni <- grid.arrange(percent_bias_plot_beta_uni,mse_plot_beta_uni,
                                              coverage_plot_beta_uni,layout_matrix = rbind(c(1,2), c(3,3)))
-ggsave(simulation_plot_percent_bias_beta_uni,filename = "Bars_Scenarios1-13_Supp.pdf",width=11,height = 8,units = "in")
+ggsave(simulation_plot_percent_bias_beta_uni,filename = "Figures/Bars_Scenarios1-13_Supp.pdf",width=11,height = 8,units = "in")
 
 
 
@@ -627,4 +627,4 @@ coverage_plot_misspecification_beta_uni <- ggplot(simulation_scenarios_misspecif
 misspecification_plot_beta_uni <- grid.arrange(relative_bias_plot_misspecification_beta_uni,
                                       mse_plot_misspecification_beta_uni,
                                       coverage_plot_misspecification_beta_uni,layout_matrix = rbind(c(1,2), c(3,3)))
-ggsave(misspecification_plot_beta_uni,filename = "Bar_Misspecification_Scenario_Graphics_Supp.pdf",width=11,height = 8,units = "in")
+ggsave(misspecification_plot_beta_uni,filename = "Figures/Bar_Misspecification_Scenario_Graphics_Supp.pdf",width=11,height = 8,units = "in")
