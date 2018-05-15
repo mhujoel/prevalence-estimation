@@ -54,75 +54,7 @@ studyData_fixed <- function(N,study_size,seed,theta, pRatioRange,pRatio_fixed = 
   return(list("carriers" = carriers_sample, "study_sizes" = study_sizes, "p_ratios"=p_ratios, "theta_s" = theta_s,"N"=N))
 }
 
-studyData_varyingTheta <- function(N,study_size,seed,theta,
-                                   pRatioRange = c(0.2,0.5),pRatio_fixed = FALSE, pRatio_value = 2){
-  # overview: a function that will generate data from N studies
-  # inputs:
-  # N: number of studies
-  # study_size: size of each study we want
-  # seed: the seed we want (allows for replication)
-  # theta: a vector of N thetas <- the population prevalence underlying each study
-  # pRatioRange: the range p+/p- can be in our data generations
-  # pRatio_fixed: TRUE: given ratio is for each study
-  # pRatio_value: the ratio if pRatio_fixed == TRUE
-  # output: a data frame with the following
-  # carriers: a vector containing the carriers in each study
-  # study_sizes: a vector with the number in each study
-  # p_ratios: a vector with the p+/p- ratio for each study
-  # theta_s: a vector with the true prevalence value for each study 
-  # N: number of studies
-  set.seed(seed)
-  carriers_sample <- c()
-  p_ratios <- c()
-  theta_s <- c()
-  study_sizes <- c()
-  for (i in 1:N) {
-    pRatio_val <- ifelse(pRatio_fixed, pRatio_value[i], 
-                         runif(n = 1, min = pRatioRange[1], max = pRatioRange[2]))
-    y = simulationPopulation_fixedTheta_ratio(ns = study_size[i], p_ratio =  pRatio_val, theta = theta[i])
-    carriers_sample <- append(carriers_sample, y[1])
-    study_sizes <- append(study_sizes, y[2])
-    p_ratios <- append(p_ratios, y[4])
-    theta_s <- append(theta_s, y[3])
-  }
-  return(list("carriers" = carriers_sample, "study_sizes" = study_sizes, "p_ratios"=p_ratios, "theta_s" = theta_s,"N"=N))
-}
 
-
-studyData_varyingTheta_varyingPratio <- function(N,study_size,seed,theta,pratio_mean,pratio_sd,fixed_Across_studies){
-  # overview: a function that will generate data from N studies for which each p_Ratio can come from an underlying distribution
-  # inputs:
-  # N: number of studies
-  # study_size: size of each study we want
-  # seed: the seed we want (allows for replication)
-  # theta: a vector of N thetas <- the population prevalence underlying each study
-  # pratio_mean: the mean of the underlying p+/p- distribution
-  # pratio_sd: the sd of the underlying p+/p- distribution
-  # fixed_Across_studies: if TRUE each study has the same p+/p- value, otherwise, study specific
-  # output: a data frame with the following
-  # carriers: a vector containing the carriers in each study
-  # study_sizes: a vector with the number in each study
-  # p_ratios: a vector with the p+/p- ratio for each study
-  # theta_s: a vector with the true prevalence value for each study 
-  # N: number of studies
-  set.seed(seed)
-  carriers_sample <- c()
-  p_ratios <- c()
-  theta_s <- c()
-  study_sizes <- c()
-  fixed_pratio_val <- ifelse(fixed_Across_studies == TRUE,rnorm(n = 1, mean = pratio_mean,sd = pratio_sd),0)
-  for (i in 1:N) {
-    pRatio_val <- ifelse(fixed_Across_studies == TRUE, 
-                         fixed_pratio_val, 
-                         rnorm(n = 1, mean = pratio_mean[i],sd = pratio_sd[i]))
-    y = simulationPopulation_fixedTheta_ratio(ns = study_size[i], p_ratio =  pRatio_val, theta = theta[i])
-    carriers_sample <- append(carriers_sample, y[1])
-    study_sizes <- append(study_sizes, y[2])
-    p_ratios <- append(p_ratios, y[4])
-    theta_s <- append(theta_s, y[3])
-  }
-  return(list("carriers" = carriers_sample, "study_sizes" = study_sizes, "p_ratios"=p_ratios, "theta_s" = theta_s,"N"=N))
-}
 
 #  --------------------------------- FREQUENTIST THEORY --------------------------------- #
 likelihood.fcn <- function(theta,p.ratios,study.sizes,carriers){
@@ -246,5 +178,7 @@ theta_extra_low = 0.0001
 # use function to generate simulation data
 fig_1_low <- simulation_fixed_theta(seed.val=11,theta_true=theta_low)
 fig_1_extra_low <- simulation_fixed_theta(seed.val=27,theta_true=theta_extra_low)
-saveRDS(fig_1_low,file="fixed_theta_scenario1.rds")
-saveRDS(fig_1_extra_low,file="fixed_theta_scenario2.rds")
+saveRDS(fig_1_low,file="Data/fixed_theta_scenario1.rds")
+saveRDS(fig_1_extra_low,file="Data/fixed_theta_scenario2.rds")
+
+
