@@ -86,7 +86,7 @@ studyData_varyingTheta <- function(N,study_size,seed,theta, pRatio_values){
 #  --------------------------------- FREQUENTIST THEORY --------------------------------- #
 mle.one.study <- function(carriers,study.sizes,p.ratios){
   # return the mle for the one study
-  mle = carriers / (study.sizes*p.ratios - p.ratios + 1)
+  mle = carriers / (p.ratios*(study.sizes-carriers) + carriers)
   return(mle)
 }
 
@@ -332,7 +332,7 @@ theta_varying_simul_data <- simulation_varying_theta(seed.val = 61,
                                                      study_sizes_vec = study_sizes_vector,
                                                      p_Ratios_vec = p_ratios_vector,
                                                      num_studies = number_studies)
-saveRDS(theta_varying_simul_data,file="varying_theta_scenario12.rds")
+saveRDS(theta_varying_simul_data,file="Data/varying_theta_scenario12.rds")
 
 set.seed(3141231)
 theta_simulation_values <- runif(n=number_studies, min = 0.00009,max = 0.00011)
@@ -341,7 +341,7 @@ theta_varying_simul_data <- simulation_varying_theta(seed.val = 2103,
                                                      study_sizes_vec = study_sizes_vector,
                                                      p_Ratios_vec = p_ratios_vector,
                                                      num_studies = number_studies)
-saveRDS(theta_varying_simul_data,file="varying_theta_scenario13.rds")
+saveRDS(theta_varying_simul_data,file="Data/varying_theta_scenario13.rds")
 #  ------------------------------------------------------------------------#
 
 
