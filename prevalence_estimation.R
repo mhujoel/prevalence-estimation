@@ -6,8 +6,8 @@ library(boot)
 mle.one.study <- function(carriers,study.sizes,p.ratios,vec_pratio_type){
   # return the mle for the one study
   mle = ifelse(vec_pratio_type == 1,
-         carriers / (study.sizes*p.ratios - p.ratios + 1),
-         carriers/(study.sizes*p.ratios) )
+               carriers / (p.ratios*(study.sizes-carriers) + carriers),
+               carriers/(study.sizes*p.ratios) )
   return(mle)
 }
 
