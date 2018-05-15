@@ -321,11 +321,11 @@ mean_vec_smaller_vec = seq(30,50,length.out = num_studies)
 # Uncertainty in the p_s estimates
 uncertainty_simulation <- simulation_varying_theta_varyingPratio_missppecified(seed.val = 74,theta_simulation_vals=theta_simuls_larger,
                                                                                p_Ratios_vec = mean_vec)
-saveRDS(uncertainty_simulation,file="varying_theta_scenario4.rds")
+saveRDS(uncertainty_simulation,file="Data/varying_theta_scenario4.rds")
 # redo with the smaller theta values to get their respective plots:
 uncertainty_simulation <- simulation_varying_theta_varyingPratio_missppecified(seed.val = 511,theta_simulation_vals=theta_simuls_smaller,
                                                                                p_Ratios_vec = mean_vec_smaller_vec)
-saveRDS(uncertainty_simulation,file="varying_theta_scenario6.rds")
+saveRDS(uncertainty_simulation,file="Data/varying_theta_scenario6.rds")
 #  -------- COVERAGE: DIFFERENT DEGREES OF MISSPECIFICATION ----------
 little_vec = rep(0.1,num_studies)
 one_above <- (mean_vec+2.5*little_vec)/(mean_vec)
@@ -341,42 +341,43 @@ four_below <- (mean_vec-10*little_vec)/(mean_vec)
 one_unit_above <- simulation_varying_theta_varyingPratio_missppecified(seed.val = 690,theta_simulation_vals=theta_simuls_larger,
                                                                      p_Ratios_vec = mean_vec,
                                                      mean_misspecification_factor=one_above)
-saveRDS(one_unit_above,file="varying_theta_scenario4_misspecified1above.rds")
+saveRDS(one_unit_above,file="Data/varying_theta_scenario4_misspecified1above.rds")
 # misspecify 0.5 above the mean
 two_unit_above <- simulation_varying_theta_varyingPratio_missppecified(seed.val = 1230,theta_simulation_vals=theta_simuls_larger,
                                                                      p_Ratios_vec = mean_vec, 
                                                      mean_misspecification_factor=two_above)
-saveRDS(two_unit_above,file="varying_theta_scenario4_misspecified2above.rds")
+saveRDS(two_unit_above,file="Data/varying_theta_scenario4_misspecified2above.rds")
 # misspecify 0.75 above the mean : 
 three_unit_above <- simulation_varying_theta_varyingPratio_missppecified(seed.val = 573,theta_simulation_vals=theta_simuls_larger,
                                                                        p_Ratios_vec = mean_vec,
                                                                        mean_misspecification_factor=three_above)
-saveRDS(three_unit_above,file="varying_theta_scenario4_misspecified3above.rds")
+saveRDS(three_unit_above,file="Data/varying_theta_scenario4_misspecified3above.rds")
 # misspecify 1 above the mean
 four_unit_above <- simulation_varying_theta_varyingPratio_missppecified(seed.val = 314,theta_simulation_vals=theta_simuls_larger,
                                                                        p_Ratios_vec = mean_vec, 
                                                                        mean_misspecification_factor=four_above)
-saveRDS(four_unit_above,file="varying_theta_scenario4_misspecified4above.rds")
+saveRDS(four_unit_above,file="Data/varying_theta_scenario4_misspecified4above.rds")
 # misspecify 0.25 below the mean
 one_unit_below <- simulation_varying_theta_varyingPratio_missppecified(seed.val = 313,theta_simulation_vals=theta_simuls_larger,
                                                                      p_Ratios_vec = mean_vec, 
                                                      mean_misspecification_factor=one_below)
-saveRDS(one_unit_below,file="varying_theta_scenario4_misspecified1below.rds")
+saveRDS(one_unit_below,file="Data/varying_theta_scenario4_misspecified1below.rds")
 # misspecify 0.5 below the mean
 two_unit_below <- simulation_varying_theta_varyingPratio_missppecified(seed.val = 69,theta_simulation_vals=theta_simuls_larger,
                                                                      p_Ratios_vec = mean_vec, 
                                                      mean_misspecification_factor=two_below)
-saveRDS(two_unit_below,file="varying_theta_scenario4_misspecified2below.rds")
+saveRDS(two_unit_below,file="Data/varying_theta_scenario4_misspecified2below.rds")
 # misspecify 0.75 below the mean
 three_unit_below <- simulation_varying_theta_varyingPratio_missppecified(seed.val = 19,theta_simulation_vals=theta_simuls_larger,
                                                                        p_Ratios_vec = mean_vec,
                                                                        mean_misspecification_factor=three_below)
-saveRDS(three_unit_below,file="varying_theta_scenario4_misspecified3below.rds")
+saveRDS(three_unit_below,file="Data/varying_theta_scenario4_misspecified3below.rds")
 # misspecify 1 below the mean
 four_unit_below <- simulation_varying_theta_varyingPratio_missppecified(seed.val = 822,theta_simulation_vals=theta_simuls_larger,
                                                                        p_Ratios_vec = mean_vec, 
                                                                        mean_misspecification_factor=four_below)
-saveRDS(four_unit_below,file="varying_theta_scenario4_misspecified4below.rds")
+
+saveRDS(four_unit_below,file="Data/varying_theta_scenario4_misspecified4below.rds")
 
 
 
