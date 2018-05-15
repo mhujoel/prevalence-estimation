@@ -21,39 +21,6 @@ simulationPopulation_fixedTheta_ratio <- function(ns,p_ratio,theta){
   return(c(carriers,num,theta,p_ratio))
 }
 
-studyData_fixed <- function(N,study_size,seed,theta, pRatioRange,pRatio_fixed = TRUE, pRatio_value){
-  # overview: a function that will generate data from N studies
-  # inputs:
-  # N: number of studies
-  # study_size: size of each study we want
-  # seed: the seed we want (allows for replication)
-  # theta: one theta value <- the population prevalence 
-  # pRatioRange: the range p+/p- can be in our data generations
-  # pRatio_fixed: TRUE: given ratio is for each study otherwise we generate random p_ratios
-  # pRatio_value: the ratio if pRatio_fixed == TRUE
-  # output: a data frame with the following
-  # carriers: a vector containing the carriers in each study
-  # study_sizes: a vector with the number in each study
-  # p_ratios: a vector with the p+/p- ratio for each study
-  # theta_s: a vector with the true prevalence value for each study 
-  # N: number of studies
-  set.seed(seed)
-  carriers_sample <- c()
-  p_ratios <- c()
-  theta_s <- c()
-  study_sizes <- c()
-  for (i in 1:N) {
-    pRatio_val <- ifelse(pRatio_fixed, pRatio_value[i], 
-                         runif(n = 1, min = pRatioRange[1], max = pRatioRange[2]))
-    y = simulationPopulation_fixedTheta_ratio(ns = study_size[i], p_ratio = pRatio_val,theta = theta)
-    carriers_sample <- append(carriers_sample, y[1])
-    study_sizes <- append(study_sizes, y[2])
-    p_ratios <- append(p_ratios, y[4])
-    theta_s <- append(theta_s, y[3])
-  }
-  return(list("carriers" = carriers_sample, "study_sizes" = study_sizes, "p_ratios"=p_ratios, "theta_s" = theta_s,"N"=N))
-}
-
 studyData_varyingTheta <- function(N,study_size,seed,theta, pRatio_values){
   # overview: a function that will generate data from N studies
   # inputs:
@@ -87,7 +54,7 @@ studyData_varyingTheta <- function(N,study_size,seed,theta, pRatio_values){
 #  --------------------------------- FREQUENTIST THEORY --------------------------------- #
 mle.one.study <- function(carriers,study.sizes,p.ratios){
   # return the mle for the one study
-  mle = carriers / (study.sizes*p.ratios - p.ratios + 1)
+  mle = carriers / (p.ratios*(study.sizes-carriers) + carriers)
   return(mle)
 }
 
@@ -338,13 +305,13 @@ num_studies = 10
 set.seed(20030314)
 theta_simulation_values <- runif(n = num_studies,min = 0.0009,max = 0.0011)
 theta_varying_simul_data <- simulation_varying_theta(seed.val = 94,theta_simulation_vals=theta_simulation_values)
-saveRDS(theta_varying_simul_data,file="varying_theta_scenario3.rds")
+saveRDS(theta_varying_simul_data,file="Data/varying_theta_scenario3.rds")
 
 # then re do all of the above with the smaller theta_simulation values:
 set.seed(19610527)
 theta_simulation_values <- runif(n = num_studies,min = 0.00009,max = 0.00011)
 theta_varying_simul_data <- simulation_varying_theta(seed.val = 27,theta_simulation_vals=theta_simulation_values)
-saveRDS(theta_varying_simul_data,file="varying_theta_scenario5.rds")
+saveRDS(theta_varying_simul_data,file="Data/varying_theta_scenario5.rds")
 
 # use one of the following data generation mechanisms to generate the data! 
 #  truncated normal theta_s terms
@@ -352,27 +319,27 @@ saveRDS(theta_varying_simul_data,file="varying_theta_scenario5.rds")
 set.seed(19881231)
 theta_simulation_values <- rtruncnorm(n=10, a=0, b=1, mean = 0.001, sd = 0.0001)
 theta_varying_simul_data <- simulation_varying_theta(seed.val = 30,theta_simulation_vals=theta_simulation_values) 
-saveRDS(theta_varying_simul_data,file="varying_theta_scenario7.rds")
+saveRDS(theta_varying_simul_data,file="Data/varying_theta_scenario7.rds")
 # overly dispersed theta_s terms
 # Simulation 8
 set.seed(05111961) 
 theta_simulation_values <- rtruncnorm(n=10, a=0, b=1, mean = 0.001, sd = 0.001)
 theta_varying_simul_data <- simulation_varying_theta(seed.val = 14,theta_simulation_vals=theta_simulation_values)
-saveRDS(theta_varying_simul_data,file="varying_theta_scenario8.rds")
+saveRDS(theta_varying_simul_data,file="Data/varying_theta_scenario8.rds")
 # overly dispersed theta_s values (but uniform)
 # Simulation 9
 set.seed(07041994) 
 theta_simulation_values <- runif(n=10, min = 0.0001,max = 0.0019)
 theta_varying_simul_data <- simulation_varying_theta(seed.val = 61,theta_simulation_vals=theta_simulation_values)
-saveRDS(theta_varying_simul_data,file="varying_theta_scenario9.rds")
+saveRDS(theta_varying_simul_data,file="Data/varying_theta_scenario9.rds")
 # 5 studies:
 # Simulation 10
 set.seed(08221994) # low prevalence
 theta_simulation_values <- runif(n = 5,min = 0.0009,max = 0.0011)
 theta_varying_simul_data <- simulation_varying_theta(seed.val = 88,theta_simulation_vals=theta_simulation_values,num_studies = 5)
-saveRDS(theta_varying_simul_data,file="varying_theta_scenario10.rds")
+saveRDS(theta_varying_simul_data,file="Data/varying_theta_scenario10.rds")
 # Simulation 11
 set.seed(4325567) #extremely low prevalence 
 theta_simulation_values <- runif(n = 5,min = 0.00009,max = 0.00011)
 theta_varying_simul_data <- simulation_varying_theta(seed.val = 03,theta_simulation_vals=theta_simulation_values,num_studies = 5)
-saveRDS(theta_varying_simul_data,file="varying_theta_scenario11.rds")
+saveRDS(theta_varying_simul_data,file="Data/varying_theta_scenario11.rds")
