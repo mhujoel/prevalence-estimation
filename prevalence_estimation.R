@@ -187,13 +187,6 @@ prevalence_estimate <- function(carriers,study_sizes,
 	p_ratios_unknown = FALSE,p_ratios_sd,
 	chain_convergence_check=FALSE,double_derivative_check = FALSE,
 	n.adapt.bayes = 5000,n.iter.bayes = 10000, bootstrap_R= 1000, thin.value=10){
-  # carriers, study_sizes, p_ratio_vals are vectors with the number of
-  # carriers per each study, the p_ratio_vals, and the study_sizes
-  # frequentist = TRUE: frequentist is used
-  # bayesian_method = "beta","uniform": beta by default
-  # if random_prevalence = TRUE, we let theta_s differ study to study (default is true)
-  # if p_ratios_unknown = TRUE: we are taking the p_ratio_vals to be the mean of a distribution
-  # if the above is true, we must be given a vector of std dev for these p_ratio_vals
   if (frequentist == TRUE & p_ratios_unknown == TRUE){
     stop("Frequentist Method cannot handle uncertainty in P_Ratio at this time")
   }
